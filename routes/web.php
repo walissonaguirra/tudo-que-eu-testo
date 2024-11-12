@@ -18,3 +18,21 @@ Route::get('/products', function () {
         'products' => Product::all()
     ]);
 });
+
+Route::post('/product', function () {
+    return Product::create(request()->only('title'));
+})->name('product.create');
+
+Route::put('/product/{product}', function (Product $product) {
+
+    return $product->fill(request()->only('title'))->save();
+
+})->name('product.update');
+
+Route::delete('/product/{product}', function (Product $product) {
+
+    $product->delete();
+
+    return response()->noContent();
+
+})->name('product.delete');
