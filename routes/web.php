@@ -20,6 +20,11 @@ Route::get('/products', function () {
 });
 
 Route::post('/product', function () {
+
+    request()->validate([
+        'title' => 'required|max:255'
+    ]);
+
     return Product::create(request()->only('title'));
 })->name('product.create');
 
